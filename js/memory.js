@@ -66,6 +66,7 @@ highScoreElement.textContent = highScore;
 // init game
 const initGame = (numCards = 8) => {
   seconds = 0;
+  timerElement.textContent = '0:00';
   clearInterval(timerInterval);
   createCards(numCards);
   timerInterval = setInterval(() => {
