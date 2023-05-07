@@ -1,15 +1,67 @@
-const symbols = ['👩‍🎤', '🦄', '🍕', '🌻', '🚀', '🍔', '🎉', '🌈', '🎨', '🐬', '🌸', '🌊', '🍩', '🎸', '🍉', '🍓', '🌵', '🍁', '🐞', '🎃', '🦜', '🎓', '🚲', '🦈', '👨‍👩‍👧‍👦', '🌺', '🐘', '👽', '🚁', '🍂', '🍟', '👑', '🌳', '🎤', '🌉', '🚢', '🌭', '🌅', '🐾', '🎥', '🍭'];
+const symbols = [
+  '👩‍🎤',
+  '🦄',
+  '🍕',
+  '🌻',
+  '🚀',
+  '🍔',
+  '🎉',
+  '🌈',
+  '🎨',
+  '🐬',
+  '🌸',
+  '🌊',
+  '🍩',
+  '🎸',
+  '🍉',
+  '🍓',
+  '🌵',
+  '🍁',
+  '🐞',
+  '🎃',
+  '🦜',
+  '🎓',
+  '🚲',
+  '🦈',
+  '👨‍👩‍👧‍👦',
+  '🌺',
+  '🐘',
+  '👽',
+  '🚁',
+  '🍂',
+  '🍟',
+  '👑',
+  '🌳',
+  '🎤',
+  '🌉',
+  '🚢',
+  '🌭',
+  '🌅',
+  '🐾',
+  '🎥',
+  '🍭',
+];
+
+const BASE_SCORE = 100; // The base score for completing the game
+const TIME_PENALTY = 10; // The number of points to subtract for each second elapsed
+const DIFFICULTY_BONUS = 50; // The bonus points for completing a harder level
 
 // Define variables
 const gameContainer = document.querySelector('.game-container');
 const levelSelect = document.querySelector('.level-select');
 const gameBoard = document.querySelector('.game-board');
 const timerElement = document.querySelector('.score__timer');
+const highScoreElement = document.querySelector('.highscore__value');
 
 let seconds = 0;
+let score = 0;
 let timerInterval;
 let cards = [];
 let flippedCards = [];
+
+let highScore = JSON.parse(localStorage.getItem('highScore')) || 0;
+
+highScoreElement.textContent = highScore;
 
 // init game
 const initGame = (numCards = 8) => {
@@ -18,7 +70,9 @@ const initGame = (numCards = 8) => {
   createCards(numCards);
   timerInterval = setInterval(() => {
     seconds++;
-    timerElement.textContent = `${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, '0')}`;
+    timerElement.textContent = `${Math.floor(seconds / 60)}:${(seconds % 60)
+      .toString()
+      .padStart(2, '0')}`;
   }, 1000);
 };
 
@@ -84,13 +138,32 @@ function flipCard(clickedCard) {
 
 function checkWin() {
   if (cards.every((card) => card.matched)) {
+    clearInterval(timerInterval);
+    let score = calculateScore(cards.length);
+    if (score > highScore || highScore === 0) {
+      highScore = score;
+      localStorage.setItem('highScore', JSON.stringify(highScore));
+      highScoreElement.textContent = highScore;
+    }
     alert('You win!');
   }
 }
 
+function calculateScore(numCards) {
+  // Calculate the time penalty
+  const timePenalty = seconds * TIME_PENALTY;
+  // Calculate the difficulty bonus
+  const difficultyBonus = numCards * DIFFICULTY_BONUS;
+  // Calculate the total score
+  score = BASE_SCORE - timePenalty + difficultyBonus;
+  // Round the score to the nearest integer
+  score = Math.round(score);
+  return score;
+}
+
 // Event Listeners
 levelSelect.addEventListener('click', (event) => {
-  const numCards = parseInt(event.target.getAttribute('data-level'));
+  let numCards = parseInt(event.target.getAttribute('data-level'));
   initGame(numCards);
 });
 

@@ -12,6 +12,7 @@ h1 {
   align-items: center;
   padding: 20px;
   justify-content: space-around;
+
 }
 
 .level-select {
@@ -44,7 +45,7 @@ h1 {
   min-height: 500px;
   justify-content: center;
   align-items: center;
-
+  min-width: 300px;
 }
 
 .card {
@@ -69,7 +70,6 @@ h1 {
 
 .card.flipped {
   background-color: #FFC107;
-  transform: rotateY(180deg);
 }
 
 .card__front, .card__back {
