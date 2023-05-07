@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <h1>Memory Game</h1>  
+    <div class="game-container">
+
+        <div class="information-container">
+            <div class="highscore-container">
+                <h2>Highscore</h2>
+                <p class="highscore__value">0</p>
+            </div>
+            <div class="score-container">
+                <h2>Score</h2>
+                <p class="score__value">0</p>
+            </div>
+            <div class="timer-container">
+                <h2>Timer</h2>
+                <p class="score__timer">00:00:00</p>
+            </div>    
+        </div>
+        <div class="controls-container">
+            <div class="level-select">
+                <button class="level-select__button" data-level="4">Easy (4 cards)</button>
+                <button class="level-select__button" data-level="8">Medium (8 cards)</button>
+                <button class="level-select__button" data-level="12">Hard (12 cards)</button>
+                <button class="level-select__button" data-level="48">Wicked (48 cards)</button>
+              </div>
+              
+        </div>
+        <div class="game-board">
+          <!-- Cards will be added dynamically here -->
+        </div>
+        
+        <button class="reset-button">Reset</button>
+      </div>
+      <canvas></canvas>
+      <script src="./js/memory.js"></script>
+      <script src="./js/background.js"></script>
+</body>
+</html>
