@@ -78,7 +78,7 @@ const initGame = (numCards = 8) => {
 };
 
 // Define functions
-function createCards(numCards) {
+const createCards = (numCards) => {
   const cardValues = [];
   for (let i = 1; i <= numCards / 2; i++) {
     cardValues.push(i);
@@ -93,14 +93,14 @@ function createCards(numCards) {
   displayCards();
 }
 
-function shuffleArray(array) {
+const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]]; //fix this line of code, should swap the values
   }
 }
 
-function displayCards() {
+const displayCards = () => {
   gameBoard.innerHTML = '';
   cards.forEach((card) => {
     const cardElement = document.createElement('div');
@@ -118,7 +118,7 @@ function displayCards() {
   });
 }
 
-function flipCard(clickedCard) {
+const flipCard =(clickedCard) => {
   if (flippedCards.length < 2 && !clickedCard.flipped && !clickedCard.matched) {
     clickedCard.flipped = true;
     flippedCards.push(clickedCard);
@@ -137,7 +137,7 @@ function flipCard(clickedCard) {
   }
 }
 
-function checkWin() {
+const checkWin = () => {
   if (cards.every((card) => card.matched)) {
     clearInterval(timerInterval);
     let score = calculateScore(cards.length);
@@ -150,7 +150,7 @@ function checkWin() {
   }
 }
 
-function calculateScore(numCards) {
+const calculateScore = (numCards) => {
   // Calculate the time penalty
   const timePenalty = seconds * TIME_PENALTY;
   // Calculate the difficulty bonus
